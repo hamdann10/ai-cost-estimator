@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from app.api.health import router as health_router
 from app.core.config import settings
+from app.api.webhook import router as webhook_router
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -10,6 +11,7 @@ app = FastAPI(
 )
 
 app.include_router(health_router)
+app.include_router(webhook_router)
 
 @app.get("/")
 def root():

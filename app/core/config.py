@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     HOST: str
     PORT: int
 
+    VERIFY_TOKEN: str
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore"
