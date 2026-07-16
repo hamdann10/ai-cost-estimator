@@ -10,6 +10,10 @@ class Settings(BaseSettings):
 
     VERIFY_TOKEN: str
 
+    META_ACCESS_TOKEN: str
+    PHONE_NUMBER_ID: str
+    GRAPH_API_VERSION: str
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore"

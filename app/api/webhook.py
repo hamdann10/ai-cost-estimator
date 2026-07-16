@@ -30,5 +30,5 @@ async def receive_webhook(request: Request):
         timestamp=int(message["timestamp"]),
     )
 
-    ConversationService().handle(incoming)
+    await ConversationService().handle(incoming)
     return {"status":"received"}
