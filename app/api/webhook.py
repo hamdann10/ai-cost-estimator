@@ -11,6 +11,9 @@ async def verify_webhook(request: Request):
     mode = request.query_params.get("hub.mode")
     token = request.query_params.get("hub.verify_token")
     challenge = request.query_params.get("hub.challenge")
+    print("Mode:", mode)
+    print("Meta Token:", token)
+    print("App Token :", settings.VERIFY_TOKEN)
 
     if mode == "subscribe" and token == settings.VERIFY_TOKEN:
         return PlainTextResponse(content=challenge)
