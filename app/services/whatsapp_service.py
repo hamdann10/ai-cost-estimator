@@ -33,5 +33,8 @@ class WhatsappService:
 
         print("status:",response.status_code)
         print(response.text)
+        print("URL:", url)
+        print("Headers:", {"Authorization": "Bearer ***", "Content-Type": "application/json"})
+        print("Payload:", payload)
 
         return response    
