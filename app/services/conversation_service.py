@@ -12,7 +12,7 @@ class ConversationService:
         await WhatsappService().send_text(
             phone_number=incoming.phone_number,
             message=(
-                "Welcome to AI Construction Estimator!\n\n"
+                "Welcome to AI Cost Estimator!\n\n"
                 "Please send your Architectural drawing(PDF)"
             ),
 
