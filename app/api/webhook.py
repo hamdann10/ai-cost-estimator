@@ -3,6 +3,7 @@ from fastapi.responses import PlainTextResponse
 import json
 from app.core.config import settings
 from app.schemas.webhook import IncomingMessage
+from app.services.media_service import MediaService
 from app.services.conversation_service import ConversationService
 
 
@@ -55,10 +56,13 @@ async def receive_webhook(request: Request):
 
     elif message_type == "document":
  
-     print("=" * 50)
-     print("PDF RECEIVED")
-     print(json.dumps(message, indent=2))
-     print("=" * 50)
+     document = message["document"]
+
+     file_path = await MediaService().download_pdf(
+       media_url=document["url"],
+       filename=document["filename"]
+     )
+     print(f"PDF saved to: {file_path}")
 
     else:
      print(f"Unsupported message type: {message_type}")
