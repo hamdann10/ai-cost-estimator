@@ -32,18 +32,35 @@ async def receive_webhook(request: Request):
 
     value = body["entry"][0]["changes"][0]["value"]
 
-    if "messages" in value:
+    # Ignore status events
+    if "messages" not in value:
+     print("No messages in this webhook")
+     print(json.dumps(value, indent=2))
+     return {"status": "ignored"}
 
-      message = value["messages"][0]
+    message = value["messages"][0]
+    message_type = message["type"]
 
-      incoming = IncomingMessage(
+    if message_type == "text":
+
+     incoming = IncomingMessage(
         phone_number=message["from"],
         message=message["text"]["body"],
-        message_type=message["type"],
+        message_type=message_type,
         message_id=message["id"],
         timestamp=int(message["timestamp"]),
     )
 
-      await ConversationService().handle(incoming)
+     await ConversationService().handle(incoming)
+
+    elif message_type == "document":
+ 
+     print("=" * 50)
+     print("PDF RECEIVED")
+     print(json.dumps(message, indent=2))
+     print("=" * 50)
+
+    else:
+     print(f"Unsupported message type: {message_type}")
 
     return {"status": "received"}
